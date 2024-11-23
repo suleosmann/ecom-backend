@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -25,4 +27,7 @@ public class Categories {
     @ManyToOne(fetch = FetchType.LAZY) // Parent category (for subcategories)
     @JoinColumn(name = "parent_category_id")
     private Categories parentCategory;
+
+    @OneToMany(mappedBy = "categories", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products;
 }
